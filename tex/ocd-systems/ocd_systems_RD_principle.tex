@@ -1,0 +1,166 @@
+\section{DBO原理~\label{DBO原理}}
+DBO技术是将两层套刻测量记号在垂直方向上叠加，通过测量组合记号左右两侧的衍射信号的强度差确定它们之间的套刻误差~\cite{qiang2020diffraction}；
+详细的数学推导见~\ref{衍射套刻量测}~节，里面推导了所有的繁琐细节部分。
+这里我们列出其中最重要的公式：
+\begin{subequations}\label{eq:intensity-order-diffraction}
+\begin{align}
+& 0~\text{阶}: I^{(0)} = A_0^{(0)} + A_1^{(0)}\cos(2\symbolpi\Delta/p) + A_2^{(0)}\cos(4\symbolpi\Delta/p) + \ldots, \label{eq:intensity-0order-diffraction}\\
+& n~\text{阶}: I^{(n)} - I^{(-n)} = 
+B_1\sin(2\symbolpi\Delta/p) + B_2\sin(4\symbolpi\Delta/p) + \ldots, \label{eq:intensity-n-order-diffraction}
+\end{align}
+\end{subequations}
+其中$\Delta$表示套刻误差，公式~\eqref{eq:intensity-n-order-diffraction}~中$n\neq0$，
+公式~\eqref{eq:intensity-order-diffraction}~是一个唯象表达式，可以用诸如$\{A_k, B_k, \Delta, p\}$等参数来表达。
+由~\ref{衍射套刻量测}~节可知，$\{A_k, B_k\}$是依赖于波长$\lambda$、入射角$\theta_i$、靶标周期$p$和靶标形貌参数CD的系数，即
+\begin{subequations}
+\begin{align}
+I^{(n)} &\equiv I^{(n)}\left(\lambda,\theta_i,\ldots, p,\text{CD},\ldots\right), \\
+A_k^{(n)} &\equiv A_k^{(n)}\left(\lambda,\theta_i,\ldots, p,\text{CD},\ldots\right), \\
+B_k^{(n)} &\equiv B_k^{(n)}\left(\lambda,\theta_i,\ldots, p,\text{CD},\ldots\right).
+\end{align}
+\end{subequations}
+$\Delta$是通过差分信号方法从信号中提取的\footnote[1]{先不考虑使用光学量测方法测量$\Delta$，即将测量信号与通过电磁仿真生成的信号进行对比。}。
+根据使用的是0阶还是1阶散射测量，算法和靶标设计有显著差异；我们下面来分别进行分析。
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1.0]{figure_zero_nonzero_intensities.pdf}
+\caption{DBO靶标中两层光栅的衍射效率，包0阶和非0阶，这里我们用1阶信号代表非0阶信号。
+(a) 当$\Delta=0$时，0阶信号是关于$\theta_i=0$对称的，且$+1$阶信号和$-1$阶信号是关于$\theta_i=0$对称的。
+(b) 当$\Delta\neq0$时，0阶信号依然是关于$\theta_i=0$对称的，而$+1$阶信号和$-1$阶信号不再关于$\theta_i=0$对称。}
+\label{fig:zero-nonzero-intensities}
+\end{figure}
+
+\subsection{零阶散射信号~\label{零阶散射信号}}
+
+利用零阶散射信号的问题可以转化为：如何利用公式~\eqref{eq:intensity-0order-diffraction}~得到套刻误差$\Delta$？
+当$x$是个小量时，我们有近似公式$\cos x\approx1-\frac{1}{2}x^2$，因此当$2\symbolpi\Delta/p$是个小量时，
+我们可以将公式~\eqref{eq:intensity-0order-diffraction}~写成
+\begin{equation}\label{eq:zero-order-approximate-formula}
+I^{(0)}(\Delta) \approx A_0^{(0)} + A_1^{(0)}\left[1 - \frac{1}{2}(2\symbolpi\Delta/p)^2\right]
+= A_0^{(0)} + A_1^{(0)} - \frac{1}{2}A_1^{(0)} (2\symbolpi/p)^2 \Delta^2.
+\end{equation}
+公式~\eqref{eq:zero-order-approximate-formula}~中$I^{(0)}(\Delta)$为测量值或模拟值，$p$为已知值，
+因此共有$A_0^{(0)},A_1^{(0)},\Delta$三个未知量；要想得到$\Delta$，我们需要至少3组$I^{(0)}$测量值；
+这里需要注意：在构建$I^{(0)}$的测量方式时，我们必须保证波长$\lambda$、入射角$\theta_i$、靶标周期$p$和靶标形貌参数CD的系数保持不变，
+这样系数$A_0^{(0)},A_1^{(0)}$才是不变的。
+令$\Delta=F+f_0+\epsilon,-F+f_0+\epsilon,F-f_0+\epsilon,-F-f_0+\epsilon$四个值，这里$F,f_0$是我们设计好的偏移量(已知量)，
+$\epsilon$是实验工艺造成的套刻误差(待测量测量)，我们可以得到如下公式：
+\begin{subequations}\label{eq:zero-order-signal}
+\begin{align}
+S_1 &\equiv I^{(0)}(F+f_0+\epsilon) = A_0^{(0)} + A_1^{(0)} - \frac{1}{2}A_1^{(0)}(2\symbolpi/p)^2 (F+f_0+\epsilon)^2, \label{eq:zero-order-signal-1} \\
+S_2 &\equiv I^{(0)}(-F+f_0+\epsilon) = A_0^{(0)} + A_1^{(0)} - \frac{1}{2}A_1^{(0)}(2\symbolpi/p)^2 (-F+f_0+\epsilon)^2, \label{eq:zero-order-signal-2} \\
+S_3 &\equiv I^{(0)}(F-f_0+\epsilon) = A_0^{(0)} + A_1^{(0)} - \frac{1}{2}A_1^{(0)}(2\symbolpi/p)^2 (F-f_0+\epsilon)^2, \label{eq:zero-order-signal-3} \\
+S_4 &\equiv I^{(0)}(-F-f_0+\epsilon) = A_0^{(0)} + A_1^{(0)} - \frac{1}{2}A_1^{(0)}(2\symbolpi/p)^2 (-F-f_0+\epsilon)^2. \label{eq:zero-order-signal-4} 
+\end{align}
+\end{subequations}
+原则上，我们利用公式~\eqref{eq:zero-order-signal}~中的任意三个公式都可以得到待测量测量$\epsilon$，
+例如利用公式~\eqref{eq:zero-order-signal-1}、\eqref{eq:zero-order-signal-2}~和~\eqref{eq:zero-order-signal-3}~我们有
+\begin{equation*}
+S_1-S_2 = - 2A_1^{(0)}(2\symbolpi/p)^2 F(f_0+\epsilon),\quad
+S_1-S_3 = - 2A_1^{(0)}(2\symbolpi/p)^2 f_0(F+\epsilon),
+\end{equation*}
+从而有
+\begin{equation*}
+\frac{S_1-S_2}{S_1-S_3} = \frac{F(f_0+\epsilon)}{f_0(F+\epsilon)}
+\Longrightarrow
+\epsilon = \frac{Ff_0(S_2-S_3)}{f_0(S_1-S_2)-F(S_1-S_3)}.
+\end{equation*}
+类似地，我们可以得到表~\ref{tab:epsilon-expression-from-3-formula}~中的各种表达式：
+\begin{table}[h]
+\center
+\caption{联立不同公式得到的$\epsilon$表达式}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{c|c}
+\hline\hline
+联立的公式 & $\epsilon$~\text{表达式} \\ [0.6ex] \hline
+\eqref{eq:zero-order-signal-1},\eqref{eq:zero-order-signal-2},\eqref{eq:zero-order-signal-3} 
+&  $\dfrac{Ff_0(S_2-S_3)}{f_0(S_1-S_2)-F(S_1-S_3)}$ \\ [1ex] \hline 
+\eqref{eq:zero-order-signal-1},\eqref{eq:zero-order-signal-2},\eqref{eq:zero-order-signal-4} 
+& $\dfrac{Ff_0(S_1-S_4)}{f_0(S_1-S_2)-F(S_2-S_4)}$ \\ [1ex] \hline
+\eqref{eq:zero-order-signal-1},\eqref{eq:zero-order-signal-3},\eqref{eq:zero-order-signal-4} 
+& $\dfrac{Ff_0(S_1-S_4)}{F(S_1-S_3)-f_0(S_3-S_4)}$ \\ [1ex] \hline
+\eqref{eq:zero-order-signal-2},\eqref{eq:zero-order-signal-3},\eqref{eq:zero-order-signal-4} 
+& $\dfrac{Ff_0(S_2-S_3)}{F(S_2-S_4)-f_0(S_3-S_4)}$ \\ [1ex]
+\hline\hline
+\end{tabular}
+\label{tab:epsilon-expression-from-3-formula}
+\end{table}
+
+同时，我们也可以利用公式~\eqref{eq:zero-order-signal}~中的全部四个公式来得到待测量测量$\epsilon$：
+\begin{equation*}
+S_1-S_2 = - 2A_1^{(0)}(2\symbolpi/p)^2 F(f_0+\epsilon),\quad
+S_3-S_4 = 2A_1^{(0)}(2\symbolpi/p)^2 F(f_0-\epsilon),
+\end{equation*}
+从而有
+\begin{equation}\label{eq:epsilon-expression-from-4-formula-a}
+\frac{S_1-S_2}{S_3-S_4} = - \frac{f_0+\epsilon}{f_0-\epsilon}
+\Longrightarrow
+\epsilon = f_0\frac{(S_1-S_2)+(S_3-S_4)}{(S_1-S_2)-(S_3-S_4)}.
+\end{equation}
+公式~\eqref{eq:epsilon-expression-from-4-formula-a}~是大多数文献中给出的、由0阶信号得到的$\epsilon$表达式。
+
+实际上，通过公式~\eqref{eq:zero-order-signal}~中的全部四个公式，我们可以得到关于$\epsilon$的另一个表达式：
+\begin{equation*}
+S_1-S_3 = - 2A_1^{(0)}(2\symbolpi/p)^2 f_0(F+\epsilon),\quad
+S_2-S_4 = 2A_1^{(0)}(2\symbolpi/p)^2 f_0(F-\epsilon),
+\end{equation*}
+从而有
+\begin{equation}\label{eq:epsilon-expression-from-4-formula-b}
+\frac{S_1-S_3}{S_2-S_4} = - \frac{F+\epsilon}{F-\epsilon}
+\Longrightarrow
+\epsilon = F\frac{(S_1-S_3)+(S_2-S_4)}{(S_1-S_3)-(S_2-S_4)}.
+\end{equation}
+
+由于在整个测量过程中保持入射角度不变，因此瞳孔光不均匀性对我们的测量没有影响。
+
+\subsection{非零阶散射信号~\label{非零阶散射信号}}
+利用非零阶散射信号的问题可以转化为：如何利用公式~\eqref{eq:intensity-n-order-diffraction}~得到套刻误差$\Delta$？
+当$x$是个小量时，我们有近似公式$\sin x\approx x$，因此当$2\symbolpi\Delta/p$是个小量时，
+我们可以将公式~\eqref{eq:intensity-n-order-diffraction}~写成
+\begin{equation}\label{eq:nonzero-order-approximate-formula}
+I^{(n)}(\Delta)-I^{(-n)}(\Delta) \approx 2\symbolpi B_1 \Delta/p.
+\end{equation}
+公式~\eqref{eq:nonzero-order-approximate-formula}~中共有$B_1,\Delta$两个未知量。
+要想得到$\Delta$，我们需要至少2组$\{I^{(n)}-I^{(-n)}\}$测量值；
+在构建$\{I^{(n)}-I^{(-n)}\}$的测量方式时，同样需要保证波长$\lambda$、入射角$\theta_i$、靶标周期$p$和靶标形貌参数CD的系数保持不变，
+这样系数$B_1$才是不变的。
+令$\Delta=f_0+\epsilon,-f_0+\epsilon$两个值，与上小节中的定义一样：$f_0$是我们设计好的偏移量(已知量)，
+$\epsilon$是实验工艺造成的套刻误差(待测量测量)；我们可以得到如下公式：
+\begin{subequations}\label{eq:nonzero-order-signal}
+\begin{align}
+S_1^{(n)}-S_1^{(-n)} &\equiv I^{(n)}(f_0+\epsilon)-I^{(-n)}(f_0+\epsilon) = 2\symbolpi B_1 (f_0+\epsilon)/p, \label{eq:nonzero-order-signal-1} \\
+S_2^{(n)}-S_2^{(-n)} &\equiv I^{(n)}(-f_0+\epsilon)-I^{(-n)}(-f_0+\epsilon) = 2\symbolpi B_1 (-f_0+\epsilon)/p. \label{eq:nonzero-order-signal-2}
+\end{align}
+\end{subequations}
+联立公式~\eqref{eq:nonzero-order-signal-1}~和~\eqref{eq:nonzero-order-signal-2}，我们可以得到
+\begin{equation}\label{eq:epsilon-expression-from-2-formula}
+\frac{S_1^{(n)}-S_1^{(-n)}}{S_2^{(n)}-S_2^{(-n)}} = - \frac{f_0+\epsilon}{f_0-\epsilon}
+\Longrightarrow
+\epsilon = f_0\frac{\left(S_1^{(n)}-S_1^{(-n)}\right)+\left(S_2^{(n)}-S_2^{(-n)}\right)}{\left(S_1^{(n)}-S_1^{(-n)}\right)-\left(S_2^{(n)}-S_2^{(-n)}\right)}.
+\end{equation}
+公式~\eqref{eq:epsilon-expression-from-2-formula}~是大多数文献中给出的、由非0阶信号得到的$\epsilon$表达式。
+另外值得注意的是，非零阶散射测量方法要求对称照明，并且瞳孔光均匀性必须受到严格控制。
+这是因为该方法假设在零套刻的情况下，$+n$阶和$-n$阶信号具有完全相同的强度；见图~\ref{fig:zero-nonzero-intensities}(a)。
+瞳孔光不均匀可能会打破此条件，从而导致工具引起的偏移(Tool Induced Shifts，TIS)。
+\\
+另外，如果公式~\eqref{eq:intensity-n-order-diffraction}~中保留$\sin x$项并不做小量线性展开，可以得到非线性公式
+\begin{equation}\label{eq:nonzero-order-approximate-formula-nonlinear}
+I^{(n)}(\Delta)-I^{(-n)}(\Delta) \approx B_1 \sin(2\symbolpi\Delta/p).
+\end{equation}
+可以得到如下关系：
+\begin{equation}\label{eq:epsilon-expression-from-2-formula-derivation-nonlinear}
+\frac{S_1^{(n)}-S_1^{(-n)}}{S_2^{(n)}-S_2^{(-n)}} 
+= \frac{I^{(n)}(f_0+\epsilon)-I^{(-n)}(-f_0+\epsilon)}{I^{(n)}(-f_0+\epsilon)-I^{(-n)}(-f_0+\epsilon)}
+= - \frac{\sin[2\symbolpi(f_0+\epsilon)/p]}{\sin[2\symbolpi(f_0-\epsilon)/p]}
+\end{equation}
+即有非线性下$\epsilon$的表达式~\cite{blancquaert2013diffraction}
+\begin{equation}\label{eq:epsilon-expression-from-2-formula-nonlinear}
+\epsilon
+= \frac{p}{2\symbolpi} \tan^{-1} \left[
+\frac{\left(S_1^{(n)}-S_1^{(-n)}\right)+\left(S_2^{(n)}-S_2^{(-n)}\right)}{\left(S_1^{(n)}-S_1^{(-n)}\right)-\left(S_2^{(n)}-S_2^{(-n)}\right)}
+\tan(2\symbolpi f_0/p)\right].
+\end{equation}
+% \Longrightarrow
+% \epsilon = f_0\frac{\left(S_1^{(n)}-S_1^{(-n)}\right)+
+% \left(S_2^{(n)}-S_2^{(-n)}\right)}{\left(S_1^{(n)}-S_1^{(-n)}\right)-
+% \left(S_2^{(n)}-S_2^{(-n)}\right)}.

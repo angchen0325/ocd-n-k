@@ -1,0 +1,396 @@
+\appendix
+\setcounter{equation}{0}
+\renewcommand{\theequation}{A.{\arabic{equation}}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A{\arabic{figure}}}
+
+\section{套刻量测中的级次控制~\label{套刻量测中的级次控制}}
+
+\subsection{成像套刻量测~\label{成像套刻量测}}
+\subsubsection{理论分析~\label{理论分析}}
+由于套刻量测要求晶圆上具有高度均匀的照明，因此一种常见的做法是使用科勒照明系统~\cite{sohn2006kohler}，
+在这种系统中，最终的图像是光源中每个点和每种波长提供的图像的叠加。
+考虑一个仅在$x$方向上具有变化的一维靶标结构，现在可以计算由整个光源在成像平面上产生的强度$I_\text{total}(x)$:
+\begin{equation}\label{eq:I-total-1d}
+I_\text{total}(x) =
+\iint_{Z_\text{ls}}~I_s(\beta,\gamma)~\text{d}\beta\text{d}\gamma
+\int w(\lambda) \left|E(x,\beta,\gamma,\lambda)\right|^2 \text{d}\lambda,
+\end{equation}
+其中关于前一个积分：$\beta,\gamma$表示光源中的坐标，$I_s(\beta,\gamma)$是光源的强度分布函数，$Z_\text{ls}$是光源的发光区域；
+关于后一个积分：$\lambda$是波长，$w(\lambda)$是光谱加权因子，$E(x,y,\beta,\gamma,\lambda)$对应于从光源的点$(\beta,\gamma)$发出的电磁场在成像平面点$(x,y)$的标量幅度。
+方程~\eqref{eq:I-total-1d}~考虑$x$方向上具有变化的一维靶标结构，因此将$y$省略。
+
+在一般情况下，对于具有任意形状的靶标，图像的构建只能通过完整的电磁仿真器来实现。
+然而，我们可以通过考虑一个由无限光栅组成的套刻靶标，来指出限制性能的主要因素。
+用单色点光源照亮该靶标，则靶标散射的光可以表示为少量与传播衍射级次相对应的平面波的和。
+为了进一步简化分析，我们假设靶标的周期$p$满足条件$p<\frac{2\lambda}{\text{NA}(1+\sigma)}$，
+其中NA为成像透镜的数值孔径，$\sigma$表示照明的部分相干性。
+光栅衍射方程指出，
+\begin{equation}\label{eq:grating-equation}
+p(\sin\theta_n-\sin\theta_0)=n\lambda,
+\end{equation}
+其中$\theta_0$是探测光的入射角，$\theta_n$是经过光栅散射的$n$级衍射角，把$p$满足的条件代入方程~\eqref{eq:grating-equation}~可以得到
+\begin{equation*}
+|n|=\frac{p|\sin\theta_n-\sin\theta_0|}{\lambda}
+\le\frac{p}{\lambda}<\frac{2}{\text{NA}(1+\sigma)}\approx2.
+\end{equation*}
+也就是说在这种情况下，$n=0,\pm1$，成像透镜只会收集0阶和$\pm1$阶衍射级次。
+那么方程~\eqref{eq:I-total-1d}~中的电磁场可以表示为
+\begin{equation}\label{eq:e-field-0pm1order-sum}
+E(x,\beta,\gamma,\lambda) =
+E_0e^{i2\symbolpi W_0} + E_1e^{i2\symbolpi(x+\text{GP})/p+i2\symbolpi W_1} +
+E_{-1}e^{-i2\symbolpi(x+\text{GP})/p+i2\symbolpi W_{-1}},
+\end{equation}
+其中复振幅$E_n$依赖于波长、入射角、靶标周期以及靶标的表面结构，
+可以用相量表示法来表示$E_n=|E_n|e^{i\psi_n}$；
+GP表示光栅位置，而$W_n$表示由于光学像差引起的波前畸变。
+\textbf{去掉所有不包含光栅位置信息的项后}，可以得到由单色点光源$(\beta,\gamma)$在成像平面上贡献的图像强度
+\begin{equation}\label{eq:I-GP-0pm1order-sum}
+\begin{aligned}
+I(x,\beta,\gamma,\lambda) &= 
+|E_0E_1|\cos\left[2\symbolpi(x+\text{GP})/p+2\symbolpi(W_1-W_0)+\psi_1-\psi_0\right] \\
+&\quad~ + |E_{-1}E_0|\cos\left[2\symbolpi(x+\text{GP})/p+2\symbolpi(W_0-W_{-1})+\psi_0-\psi_{-1}\right] \\
+&\quad~ + |E_{-1}E_{+1}|\cos\left[4\symbolpi(x+\text{GP})/p+2\symbolpi(W_{+1}-W_{-1})+\psi_{+1}-\psi_{-1}\right].
+\end{aligned}
+\end{equation}
+我们使用公式~\eqref{eq:I-GP-0pm1order-sum}~可以提取光栅位置GP的信息。
+在此提取过程中存在两个潜在的误差源：未知的、依赖于靶标表面结构的相位$\psi_0,\psi_{\pm1}$和光学像差$W_n$。
+由于表面结构相位的影响可以在公式~\eqref{eq:I-GP-0pm1order-sum}~中看出：
+例如，若某项的相位差为$\symbolpi$，该项对光栅位置估计的贡献将偏移$p/2$。
+其他项引起的偏移取决于相应的相位差，可能会导致测得的光栅位移出现不可预测的结果。
+若将源点$(\beta,\gamma)$和源点$(-\beta,\gamma)$对应的图像相加，
+则可以抵消因相位差引起的图像偏移误差，前提是两束光的强度$I_s(\beta,\gamma)$和$I_s(-\beta,\gamma)$
+相等且靶标具有对称结构\footnote[1]{由于工艺条件造成的轻微非对称性，可能会导致$a_n(\lambda,\beta,\gamma)$和$a_{-n}(\lambda,-\beta,\gamma)$之间出现残余差异，
+这会在光栅位置估计中留下一个微小的、依赖于表面结构的因素。}。
+通过使用衍射级次的振幅关系
+\begin{equation}\label{eq:e-amplitude-relation-pnbeta}
+E_n(\lambda,\beta,\gamma)=E_{-n}(\lambda,-\beta,\gamma),
+\end{equation}
+并将对称像差和非对称像差[$W_{ns}(\lambda,\beta,\gamma)$和$W_{na}(\lambda,\beta,\gamma)$]的影响分开，也就是说\footnote[2]{
+公式~\eqref{eq:optical-aberration-relation-pnbeta}~的形式有待验证，这样取是为了凑出文献\cite{adel2008diffraction}中的结果。}：
+\begin{equation}\label{eq:optical-aberration-relation-pnbeta}
+W_{ns}(\lambda,\beta,\gamma) = W_{-ns}(\lambda,-\beta,\gamma), \quad
+W_{na}(\lambda,\beta,\gamma) = - W_{-na}(\lambda,-\beta,\gamma).
+\end{equation}
+根据公式~\eqref{eq:e-field-0pm1order-sum}，我们可以得到
+\begin{equation*}
+\begin{aligned}
+E(x,\beta,\gamma,\lambda) &=
+E_0(\beta)e^{i2\symbolpi[W_{0s}(\beta)+W_{0a}(\beta)]} + E_1(\beta)e^{i2\symbolpi(x+\text{GP})/p+i2\symbolpi[W_{1s}(\beta)+W_{1a}(\beta)]} \\
+&\quad~ +E_{-1}(\beta)e^{-i2\symbolpi(x+\text{GP})/p+i2\symbolpi[W_{-1s}(\beta)+W_{-1a}(\beta)]}, \\
+E(x,-\beta,\gamma,\lambda) &=
+E_0(-\beta)e^{i2\symbolpi[W_{0s}(-\beta)+W_{0a}(-\beta)]} + E_1(-\beta)e^{i2\symbolpi(x+\text{GP})/p+i2\symbolpi[W_{1s}(-\beta)+W_{1a}(-\beta)]} \\
+&\quad~ +E_{-1}(-\beta)e^{-i2\symbolpi(x+\text{GP})/p+i2\symbolpi[W_{-1s}(-\beta)+W_{-1a}(-\beta)]}.
+\end{aligned}
+\end{equation*}
+仿照从公式~\eqref{eq:e-field-0pm1order-sum}~到~\eqref{eq:I-GP-0pm1order-sum}~的流程，我们可以得到
+\begin{equation*}\scalebox{0.71}{$
+\begin{aligned}
+&I(x,\beta,\gamma,\lambda) = |E_0(\beta)E_1(\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{1s}(\beta)+W_{1a}(\beta)-W_{0s}(\beta)-W_{0a}(\beta)]+\psi_1(\beta)-\psi_0(\beta)\right\} \\
+&\quad~ + |E_{-1}(\beta)E_0(\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{0s}(\beta)+W_{0a}(\beta)-W_{-1s}(\beta)-W_{-1a}(\beta)]+\psi_0(\beta)-\psi_{-1}(\beta)\right\} \\
+&\quad~ + |E_{-1}(\beta)E_{+1}(\beta)|\cos\left\{4\symbolpi(x+\text{GP})/p+2\symbolpi[W_{+1s}(\beta)+W_{+1a}(\beta)-W_{-1s}(\beta)-W_{-1a}(\beta)]+\psi_{+1}(\beta)-\psi_{-1}(\beta)\right\}, \\
+& I(x,-\beta,\gamma,\lambda) = |E_0(-\beta)E_1(-\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{1s}(-\beta)+W_{1a}(-\beta)-W_{0s}(-\beta)-W_{0a}(-\beta)]+\psi_1(-\beta)-\psi_0(-\beta)\right\} \\
+&\quad~ + |E_{-1}(-\beta)E_0(-\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{0s}(-\beta)+W_{0a}(-\beta)-W_{-1s}(-\beta)-W_{-1a}(-\beta)]+\psi_0(-\beta)-\psi_{-1}(-\beta)\right\} \\
+&\quad~ + |E_{-1}(-\beta)E_{+1}(-\beta)|\cos\left\{4\symbolpi(x+\text{GP})/p+2\symbolpi[W_{+1s}(-\beta)+W_{+1a}(-\beta)-W_{-1s}(-\beta)-W_{-1a}(-\beta)]+\psi_{+1}(-\beta)-\psi_{-1}(-\beta)\right\}.
+\end{aligned}$}
+\end{equation*}
+把上面两式子相加并利用公式~\eqref{eq:e-amplitude-relation-pnbeta}~和~\eqref{eq:optical-aberration-relation-pnbeta}~得到
+\begin{equation}\label{eq:I-GP-0pm1order-sum-pnbeta}
+\scalebox{0.72}{$
+\begin{aligned}
+&I(x,\beta,\gamma,\lambda) + I(x,-\beta,\gamma,\lambda) \\ 
+&=|E_0(\beta)E_1(\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{1s}(\beta)+W_{1a}(\beta)-W_{0s}(\beta)-W_{0a}(\beta)]+\psi_1(\beta)-\psi_0(\beta)\right\} \\
+&~+ |E_{-1}(-\beta)E_0(-\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{0s}(-\beta)+W_{0a}(-\beta)-W_{-1s}(-\beta)-W_{-1a}(-\beta)]+\psi_0(-\beta)-\psi_{-1}(-\beta)\right\} \\
+&~+ |E_{-1}(\beta)E_0(\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{0s}(\beta)+W_{0a}(\beta)-W_{-1s}(\beta)-W_{-1a}(\beta)]+\psi_0(\beta)-\psi_{-1}(\beta)\right\} \\
+&~+ |E_0(-\beta)E_1(-\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{1s}(-\beta)+W_{1a}(-\beta)-W_{0s}(-\beta)-W_{0a}(-\beta)]+\psi_1(-\beta)-\psi_0(-\beta)\right\} \\
+&~+ |E_{-1}(\beta)E_{+1}(\beta)|\cos\left\{4\symbolpi(x+\text{GP})/p+2\symbolpi[W_{+1s}(\beta)+W_{+1a}(\beta)-W_{-1s}(\beta)-W_{-1a}(\beta)]+\psi_{+1}(\beta)-\psi_{-1}(\beta)\right\} \\
+&~+ |E_{-1}(-\beta)E_{+1}(-\beta)|\cos\left\{4\symbolpi(x+\text{GP})/p+2\symbolpi[W_{+1s}(-\beta)+W_{+1a}(-\beta)-W_{-1s}(-\beta)-W_{-1a}(-\beta)]+\psi_{+1}(-\beta)-\psi_{-1}(-\beta)\right\} \\
+&= 2|E_0(\beta)E_1(\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{1a}(\beta)-W_{0a}(\beta)]\right\}\cos\left\{2\symbolpi[W_{1s}(\beta)-W_{0s}(\beta)]+\psi_1(\beta)-\psi_0(\beta)\right\} \\
+&~+ 2|E_{-1}(\beta)E_0(\beta)|\cos\left\{2\symbolpi(x+\text{GP})/p+2\symbolpi[W_{0a}(\beta)-W_{-1a}(\beta)]\right\}\cos\left\{2\symbolpi[W_{0s}(\beta)-W_{-1s}(\beta)]+\psi_0(\beta)-\psi_{-1}(\beta)\right\} \\
+&~+ 2|E_{-1}(\beta)E_1(\beta)|\cos\left\{4\symbolpi(x+\text{GP})/p+2\symbolpi[W_{1a}(\beta)-W_{-1a}(\beta)]\right\}\cos\left\{2\symbolpi[W_{1s}(\beta)-W_{-1s}(\beta)]+\psi_1(\beta)-\psi_{-1}(\beta)\right\}.
+\end{aligned}$}
+\end{equation}
+从公式~\eqref{eq:I-GP-0pm1order-sum-pnbeta}~可以看出，表面结构引起的相位差不再影响对光栅位置GP的预测。
+
+现在我们将注意力转向光学像差的影响。
+如公式~\eqref{eq:I-GP-0pm1order-sum-pnbeta}~所示，即使仅存在三条光学路径($\pm1$阶和$0$阶衍射级次)，也无法保证工具性能参数对光学缺陷不敏感。
+实际上，由公式~\eqref{eq:I-GP-0pm1order-sum-pnbeta}~描述的单色偶极光源的总强度包含三个项，每项都带有其自身的像差影响，其加权因子取决于衍射级次的振幅、拓扑相位和量测的焦点位置(包括在对称像差中)。
+由于这些加权因子对于不同工艺层来说并不相同，并且随工艺变化而改变，因此无法完全消除焦点位置和光学缺陷的影响。
+此外，工具性能对量测焦点位置的依赖显著增强了工艺变化的影响。
+如果进一步考虑不同照明角度和波长的影响，就可以清楚地看出，控制工具性能的唯一方法是合理选择光学架构，将衍射级次限制为仅有两个。
+这大大简化了情况：仅剩一个依赖于像差的相位偏移。
+此外，由于工艺层和光刻胶层的光束通过镜头中的相同路径，因此这两个层的图像经历了相同的像差引起的位移。
+由于我们只关心光栅之间的相对位移，这些共模项会相互抵消。
+
+公式~\eqref{eq:I-GP-0pm1order-sum-pnbeta}~中$x$相关余弦项外的乘法项不再影响光栅位置的估计。
+然而，这些项可能会对信号对比度产生影响。
+为了控制对比度，需要在波长或角度空间上留有一定的余地，同时控制焦点位置。
+我们已展示，通过适当控制参与套刻量测的衍射级次，可以消除因靶标表面结构和光学像差引起的量测误差。
+这种控制在使用传统的盒中盒靶标时无法实现，因为它们的散射模式在角度空间中是连续的，且工艺层和光刻胶层的散射模式不同。
+总结以上内容，为了按照上述方法改进套刻量测，我们需要周期性套刻靶标以及实现所提出衍射级次控制方案的套刻量测工具。
+
+\subsubsection{周期性套刻靶标和套刻量测工具架构~\label{周期性套刻靶标和套刻量测工具架构}}
+如上所述，充分利用衍射级次控制的一个必要组件是周期性套刻靶标。
+起初是KLA-Tencor推出了用于套刻量测的AIM~(Advanced Image Metrology)靶标。
+AIM靶标的用户发现，该靶标的稳健性和增强的信息含量使套刻量测的TMU~(Total Measurement Uncertainty)降到了远低于1 nm的水平。
+当实现允许级次控制的光学架构时，这一靶标设计的全部潜力将得到发挥。
+对于这些架构的基本要求是，必须实现理论分析的结论，仅利用两个衍射级次进行图像形成。
+
+\subsubsection{偶极照明~\label{偶极照明}}
+采用偶极照明的双光束成像示意图借鉴了著名的光刻方法。
+图像通过左侧照明极的$0$阶和$-1$阶衍射级次之间的干涉以及右侧照明极的$0$阶和$+1$阶衍射级次之间的干涉来构建。
+在这种情况下，总强度$I(x)=I(x,\beta,\gamma,\lambda)+I(x,-\beta,\gamma,\lambda)$等于
+\begin{equation}
+\scalebox{0.90}{$
+I(x) = 
+|E_{-1}E_0|\cos\left[2\symbolpi(x+\text{GP})/p+2\symbolpi(W_{0a}-W_{-1a})\right]\cos\left[2\symbolpi(W_{0s}-W_{-1s})+\psi_0-\psi_{-1}\right].
+$}
+\end{equation}
+假设照明光的光谱范围较窄，照明极的数值孔径（NA）较小，我们可以消除非对称像差的影响，
+因为$W_{0a} - W_{-1a}$对两个光栅都是相同的(即共模抑制)。
+此外，通过在瞳孔平面选择极点位置，使其满足入射角条件$\theta=\arcsin(\lambda/2p)$，我们也可以消除对称像差的影响，并提供较大的焦深。
+在理想情况下，可以得到来自光刻胶层(resist)和工艺层(process)光栅的图像强度：
+\begin{equation}\label{eq:I-GP-0m1order-sum-two-layers}
+\scalebox{0.85}{$
+\begin{aligned}
+I^r(x) &= 
+|E_{-1}^rE_0^r|\cos\left[2\symbolpi\left(x+\text{GP}^r\right)/p+2\symbolpi(W_{0a}-W_{-1a})\right]\cos\left[2\symbolpi(W_{0s}-W_{-1s})+\psi_0^r-\psi_{-1}^r\right], \\
+I^p(x) &= 
+|E_{-1}^pE_0^p|\cos\left[2\symbolpi\left(x(x+\text{GP}^p\right)/p+2\symbolpi(W_{0a}-W_{-1a})\right]\cos\left[2\symbolpi(W_{0s}-W_{-1s})+\psi_0^p-\psi_{-1}^p\right],
+\end{aligned}$}
+\end{equation}
+所需的光栅位移可以通过两个单谐波信号相位之间的差异来计算。
+
+在标准成像中，光学像差以及光谱效应可能导致不可预测的位置误差。
+工艺层和光刻胶层之间不相关的位置误差可能会导致不同的相对位移误差。
+最先进的套刻量测工具通过世界级的宽带像差性能在设计和制造中将这些误差最小化。
+相比之下，在双光束架构中，位置误差在整个光谱范围内几乎相同，这通过接近零的相对位移得到验证，从而实现了核心量测性能的扩展，而无需进一步的光学改进。
+
+上述方案的主要缺点在于它并不能保证信号对比度。
+确实，当公式~\eqref{eq:I-GP-0m1order-sum-two-layers}~中的拓扑相位差接近$\symbolpi/2$时，靶标对比度较低，此时只能通过改变照明波长来改善对比度。
+其次，该方案需要对两个照明极点进行精确的照明平衡。
+
+\subsubsection{带零阶阻挡的正入射照明~\label{带零阶阻挡的正入射照明}}
+对于带有正常照明和0阶阻挡的双光束成像的基本架构，图像由$+1$阶和$-1$阶衍射级次之间的干涉生成。
+在这种情况下，强度$I(x)=I(x,0,0,\lambda)$
+\begin{equation}
+I(x) = 
+|E_0|^2\cos\left[4\symbolpi(x+\text{GP})/p+2\symbolpi(W_{0a}-W_{-1a})\right].
+\end{equation}
+该架构的主要优点是它可以确保良好的图像对比度。
+与之前的情况一样，在照明数值孔径(NA)足够低且光谱宽度较小的情况下，
+由非对称像差引起的光栅位置误差在两个光栅(光刻胶层和工艺层)中相等，因此像差对套刻量测没有影响。
+
+
+\subsection{衍射套刻量测~\label{衍射套刻量测}}
+
+另一种基于衍射级次控制的方法是散射测量套刻，该方法在由相同周期的光栅叠加组成的单元上进行。
+来自DBO靶标单元的反射光在两个光栅上依次发生散射。
+例如，从整个单元散射出的$n$阶衍射光是对应于每个光栅的所有可能衍射级次组合的总和，即满足$n_1+n_2=n$的组合$\{n_1, n_2\}$，
+图~\ref{fig:dbo-target}~中的红黄绿三种颜色的衍射代表了三组可能的组合。
+注意这里只考虑来自参考层光栅的一次背散射，不考虑在两层光栅之间多次反射的衍射过程，这在多数情况下是一个很好的近似。
+
+\begin{figure}[!b]
+\centering
+\includegraphics[scale=1.0]{figure_dbo_target.pdf}
+\caption{DBO靶标的示意图，入射光在入射靶标后经历来自当前层光栅的$n_1$阶衍射和来自参考层光栅的$n_2$阶衍射。}
+\label{fig:dbo-target}
+\end{figure}
+
+因此，入射光$E_0e^{i(k_xx+k_zz)}$经历的过程如下(入射光的强度$I_0=|E_0|^2$)：
+\begin{itemize}[leftmargin=*] 
+\setlength{\itemsep}{2pt}
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{0pt}
+\item 经过当前层光栅透射为$t_c(l_1)E_0e^{i(k_xx+k_zz)}e^{i2\symbolpi l_1x/p}$.
+\item 经过参考层光栅反射为$r_r(n_2)t_c(l_1)E_0e^{i(k_xx+k_zz+k_z^\prime d)}e^{i2\symbolpi l_1x/p}e^{i2\symbolpi n_2(x+\Delta)/p}$.
+\item 再经过当前层光栅透射为$tt_c(l_2)r_r(n_2)t_c(l_1)E_0e^{i(k_xx+k_zz+2k_z^\prime d)}e^{i2\symbolpi(l_1+l_2)x/p}e^{i2\symbolpi n_2(x+\Delta)/p}$.
+\end{itemize}
+其中$\Delta$表示光栅的相对位移，$p$为光栅周期。
+利用一些变换，我们可以令$l_1+l_2=n_1,~f_{n_1}=\sqrt{E_0}t_c(l_1)tt_c(n_1-l_1),~g_{n_2}=\sqrt{E_0}e^{2ik_z^\prime d}r_r(n_2)$，并略去传播项$e^{i(k_xx+k_zz)}$，
+则来自DBO靶标单元的$n$阶衍射光强度可以表示为无数组衍射组合$\{n_1, n_2\}$的求和
+\begin{equation}\label{eq:diffraction-Iradiance-two-layer-grating-one-backscatter}
+I_n = \left|\sum_{n_1+n_2=n} f_{n_1}e^{i2\symbolpi n_1x/p} g_{n_2}e^{i2\symbolpi n_2(x+\Delta)/p}\right|^2,
+\end{equation}
+这是双层光栅非常重要的唯象公式，其中，$\left\{f_{n_1}, g_{n_2}\right\}$是依赖于波长、入射角、靶标周期和靶标形貌参数的复系数。
+另外，由于层间的亚波长间距，即使是对应于每个光栅的消逝模式也会对信号产生贡献，即$k_z^\prime$为虚数的模式。
+根据公式~\eqref{eq:diffraction-Iradiance-two-layer-grating-one-backscatter}，可以找到$n$阶衍射光强度与$\Delta$之间的关系，如下：
+\begin{equation}\label{eq:diffraction-iradiance-two-layer-expression}
+\scalebox{0.96}{$
+\begin{aligned}
+I^{(n)}
+&= \sum_{n_1+n_2=n} f_{n_1}e^{i2\symbolpi n_1x/p} g_{n_2}e^{i2\symbolpi n_2(x+\Delta)/p}
+\sum_{n_1^\prime+n_2^\prime=n} f_{n_1^\prime}^\ast e^{-i2\symbolpi n_1^\prime x/p} g_{n_2^\prime}^\ast e^{-i2\symbolpi n_2^\prime(x+\Delta)/p} \\
+&= \sum_{n_1} f_{n_1}e^{i2\symbolpi n_1x/p} g_{n-n_1}e^{i2\symbolpi(n-n_1)(x+\Delta)/p}
+\sum_{n_1^\prime} f_{n_1^\prime}^\ast e^{-i2\symbolpi n_1^\prime x/p} g_{n-n_1^\prime}^\ast e^{-i2\symbolpi\left(n-n_1^\prime\right)(x+\Delta)/p} \\
+&= \sum_{n_1}\sum_{n_1^\prime} f_{n_1} g_{n-n_1} f_{n_1^\prime}^\ast g_{n-n_1^\prime}^\ast
+e^{i2\symbolpi\left(n_1^\prime-n_1\right)\Delta/p} \qquad \left(\text{令}~n_1^\prime-n_1=k\right) \\
+&= \sum_k\sum_{n_1} f_{n_1} g_{n-n_1} f_{n_1+k}^\ast g_{n-n_1-k}^\ast
+\left[\cos(2\symbolpi k\Delta/p)+i\sin(2\symbolpi k\Delta/p)\right] \\
+&= \sum_k \left[a_k^{(n)}\cos(2\symbolpi k\Delta/p) + b_k^{(n)}\sin(2\symbolpi k\Delta/p)\right] \\
+&= \sum_{k=0}^\infty \left[A_k^{(n)}\cos(2\symbolpi k\Delta/p) + B_k^{(n)}\sin(2\symbolpi k\Delta/p)\right],
+\end{aligned}$}
+\end{equation}
+其中
+\begin{equation*}
+\begin{aligned}
+a_k^{(n)} &= \sum_{n_1} f_{n_1} g_{n-n_1} f_{n_1+k}^\ast g_{n-n_1-k}^\ast,
+\qquad A_{k>0}^{(n)} = a_k^{(n)} + a_{-k}^{(n)}, \qquad A_0^{(n)} = a_0^{(n)}, \\
+b_k^{(n)} &= i\sum_{n_1} f_{n_1} g_{n-n_1} f_{n_1+k}^\ast g_{n-n_1-k}^\ast, 
+\qquad B_{k>0}^{(n)} = b_k^{(n)} - b_{-k}^{(n)}, \qquad B_0^{(n)} = b_0^{(n)}. \\
+\end{aligned}
+\end{equation*}
+散射测量方法的一个优势在于，其测量量是信号强度而非成像中的位置，因此光学像差不会引入系统误差。
+然而，散射测量方法的缺点是靶标相对较大，包含多个不同偏移的单元，以便确定公式~\eqref{eq:diffraction-iradiance-two-layer-expression}~中模型的未知系数。
+
+\subsubsection{光栅衍射中的互易性~\label{光栅衍射中的互易性}}
+
+根据光栅的衍射公式(受空间的分立平移对称性保护)可以得到：
+\begin{equation*}
+k_{i,\parallel} + l_1 \frac{2\symbolpi}{p} + n_2 \frac{2\symbolpi}{p}
++ l_2 \frac{2\symbolpi}{p} = k_{o,\parallel} ~\Longleftrightarrow~
+-k_{i,\parallel} - l_2 \frac{2\symbolpi}{p} - n_2 \frac{2\symbolpi}{p}
+- l_1 \frac{2\symbolpi}{p} = -k_{o,\parallel},
+\end{equation*}
+其中$k_{i,\parallel},k_{o,\parallel}$分别表示入/出射光线波矢的水平分量，$\Longleftrightarrow$表示箭头两端的光线路径是互易的，
+即图~\ref{fig:reciprocal-relation-0n0orders}(a)中光线路径$s_1$和$s_2$是互易的，可以得到
+\begin{equation}\label{eq:reciprocal-relation}
+t_c(l_1)=t_c(-l_1),~
+r_r(n_2)=r_r(-n_2),~
+tt_c(l_2)=tt_c(-l_2)
+\Longrightarrow 
+f_{n_1}g_{n_2} = f_{-n_1}g_{-n_2}.
+\end{equation}
+
+\begin{figure}[t]
+\centering
+\includegraphics[scale=1.0]{figure_reciprocal_relation_0n0orders.pdf}
+\caption{DBO靶标中两层光栅衍射光的互易性。
+(a) 以路径$s_1$中的$t_c(l_1)$为例，其代表光以$\theta_i$为入射角从空气进入第一层光栅对$l_1$阶透射效率；
+那么其互易的透射系数$t_c(-l_1)$为$s_2$中的以$-\theta_i$为入射角从空气进入第一层光栅对$-l_1$阶透射效率。
+(b) 计算了(a)中各个互易过程的透射反射强度，可以看到它们满足互易性，即关于$\theta_i=0^\circ$表现出对称性。}
+\label{fig:reciprocal-relation-0n0orders}
+\end{figure}
+
+我们利用RCWA算法计算了一些不同阶次的衍射谱，见图~\ref{fig:reciprocal-relation-0n0orders}(b)，
+可以看到衍射强度确实是互易的(注意这里我们只计算了强度信息，并未计算衍射系数的相位；根据互易性，相位也必然相同)，
+其中用1阶散射代表非零阶，从实例上验证了公式~\eqref{eq:reciprocal-relation}~的正确性。
+
+\subsubsection{零阶散射仪~\label{零阶散射仪}}
+对于零阶衍射信号，结合公式~\eqref{eq:reciprocal-relation}，可以得到各系数的表达式如下
+\begin{equation*}
+\scalebox{0.83}{$
+\begin{aligned}
+A_{k>0}^{(0)} &= a_k^{(0)} + a_{-k}^{(0)} =
+\sum_{n_1} f_{n_1} g_{-n_1} f_{n_1+k}^\ast g_{-n_1-k}^\ast +
+\sum_{n_1} f_{n_1} g_{-n_1} f_{n_1-k}^\ast g_{-n_1+k}^\ast \\
+&= \sum_{n_1} f_{n_1} g_{-n_1} \left(f_{n_1+k}^\ast g_{-n_1-k}^\ast + f_{n_1-k}^\ast g_{-n_1+k}^\ast\right) \\
+&= f_0 g_0 \left(f_{k}^\ast g_{-k}^\ast + f_{-k}^\ast g_{k}^\ast\right)
++ \sum_{n_1\neq0} f_{n_1} g_{-n_1} \left(f_{n_1+k}^\ast g_{-n_1-k}^\ast + f_{n_1-k}^\ast g_{-n_1+k}^\ast\right) \\
+&= 2f_0 g_0 f_{k}^\ast g_{-k}^\ast +
+\sum_{n_1>0} \left[ f_{n_1} g_{-n_1} \left(f_{n_1+k}^\ast g_{-n_1-k}^\ast + f_{n_1-k}^\ast g_{-n_1+k}^\ast\right) + 
+f_{-n_1} g_{n_1} \left(f_{-n_1+k}^\ast g_{+n_1-k}^\ast + f_{-n_1-k}^\ast g_{n_1+k}^\ast\right) \right] \\
+&= 2f_0 g_0 f_{k}^\ast g_{-k}^\ast +
+2\sum_{n_1>0} f_{n_1} g_{-n_1} \left(f_{n_1+k}^\ast g_{-n_1-k}^\ast + f_{n_1-k}^\ast g_{-n_1+k}^\ast\right), \\
+A_0^{(0)} &= a_0^{(0)} = \sum_{n_1} f_{n_1} g_{-n_1} f_{n_1}^\ast g_{-n_1}^\ast
+= \sum_{n_1} \left|f_{n_1} g_{-n_1}\right|^2,
+\end{aligned}$}
+\end{equation*}
+\begin{equation*}
+\scalebox{0.83}{$
+\begin{aligned}
+B_{k>0}^{(0)} &= b_k^{(0)} - b_{-k}^{(0)} =
+i\sum_{n_1} f_{n_1} g_{-n_1} f_{n_1+k}^\ast g_{-n_1-k}^\ast -
+i\sum_{n_1} f_{n_1} g_{-n_1} f_{n_1-k}^\ast g_{-n_1+k}^\ast \\
+&= i\sum_{n_1} f_{n_1} g_{-n_1} \left(f_{n_1+k}^\ast g_{-n_1-k}^\ast - f_{n_1-k}^\ast g_{-n_1+k}^\ast\right) \\
+&= if_0 g_0 \left(f_{k}^\ast g_{-k}^\ast - f_{-k}^\ast g_{k}^\ast\right)
++ i\sum_{n_1\neq0} f_{n_1} g_{-n_1} \left(f_{n_1+k}^\ast g_{-n_1-k}^\ast - f_{n_1-k}^\ast g_{-n_1+k}^\ast\right) \\
+&= i\sum_{n_1>0} \left[ f_{n_1} g_{-n_1} \left(f_{n_1+k}^\ast g_{-n_1-k}^\ast + f_{n_1-k}^\ast g_{-n_1+k}^\ast\right) - 
+f_{-n_1} g_{n_1} \left(f_{-n_1+k}^\ast g_{+n_1-k}^\ast + f_{-n_1-k}^\ast g_{n_1+k}^\ast\right) \right] = 0, \\
+B_0^{(0)} &= b_0^{(0)} = i\sum_{n_1} f_{n_1} g_{-n_1} f_{n_1}^\ast g_{-n_1}^\ast
+= i\sum_{n_1} \left|f_{n_1} g_{-n_1}\right|^2.
+\end{aligned}$}
+\end{equation*}
+把上述公式代入公式~\eqref{eq:diffraction-iradiance-two-layer-expression}，可以得到最为通用的形式如下
+\begin{equation}\label{eq:intensity-0-order-expression}
+I^{(0)} = \sum_{k=0}^\infty A_k^{(0)}\cos(2\symbolpi k\Delta/p) 
+= A_0^{(0)} + A_1^{(0)}\cos(2\symbolpi\Delta/p) + A_2^{(0)}\cos(4\symbolpi\Delta/p) + \ldots,
+\end{equation}
+该公式确保$0$阶信号的强度仅依赖于光栅位置之间相对位移的绝对值。
+% 可以看到由于互易性原理，模型中的未知系数数量显著减少。
+% 此外，互易性原理消除了瞳孔光不均匀性作为系统误差源的影响。
+
+\subsubsection{非零阶散射仪~\label{非零阶散射仪}}
+任何非零衍射级次也可用于套刻测量，不过同时需要$\pm n$阶衍射信号；如图~\ref{fig:reciprocal-relation-0n0orders}(a)~所示，若$s_1$为$+n$阶信号，则$s_2$为$-n$阶信号，相应的系数为
+\begin{equation*}
+\scalebox{0.76}{$
+\begin{aligned}
+A_{k>0}^{(n)} &= a_k^{(n)} + a_{-k}^{(n)} =
+\sum_{n_1} f_{n_1} g_{n-n_1} f_{n_1+k}^\ast g_{n-n_1-k}^\ast +
+\sum_{n_1} f_{n_1} g_{n-n_1} f_{n_1-k}^\ast g_{n-n_1+k}^\ast \\
+&= \sum_{n_1} f_{n_1} g_{n-n_1} \left(f_{n_1+k}^\ast g_{n-n_1-k}^\ast + f_{n_1-k}^\ast g_{n-n_1+k}^\ast\right) \\
+&= \sum_{n_1>0} \left[f_{n_1} g_{n-n_1} \left(f_{n_1+k}^\ast g_{n-n_1-k}^\ast + f_{n_1-k}^\ast g_{n-n_1+k}^\ast\right) 
++ f_{-n_1} g_{n+n_1} \left(f_{-n_1+k}^\ast g_{n+n_1-k}^\ast + f_{-n_1-k}^\ast g_{n+n_1+k}^\ast\right) \right] \\
+& \qquad + f_0 g_n \left(f_{k}^\ast g_{n-k}^\ast + f_{-k}^\ast g_{n+k}^\ast\right) \\
+A_{0}^{(n)} &= a_{0}^{(n)} = \sum_{n_1} f_{n_1} g_{n-n_1} f_{n_1}^\ast g_{n-n_1}^\ast = \sum_{n_1}\left|f_{n_1}g_{n-n_1}\right|^2 =
+|f_0g_n|^2+\sum_{n_1>0} \left(\left|f_{n_1}g_{n-n_1}\right|^2 + \left|f_{-n_1}g_{n+n_1}\right|^2\right), \\
+A_{k>0}^{(-n)} &= a_k^{(-n)} + a_{-k}^{(-n)} =
+\sum_{n_1} f_{n_1} g_{-n-n_1} f_{n_1+k}^\ast g_{-n-n_1-k}^\ast +
+\sum_{n_1} f_{n_1} g_{-n-n_1} f_{n_1-k}^\ast g_{-n-n_1+k}^\ast \\
+&= \sum_{n_1} f_{n_1} g_{-n-n_1} \left(f_{n_1+k}^\ast g_{-n-n_1-k}^\ast + f_{n_1-k}^\ast g_{-n-n_1+k}^\ast\right) \\
+&= \sum_{n_1>0} \left[f_{n_1} g_{-n-n_1} \left(f_{n_1+k}^\ast g_{-n-n_1-k}^\ast + f_{n_1-k}^\ast g_{-n-n_1+k}^\ast\right) 
++ f_{-n_1} g_{-n+n_1} \left(f_{-n_1+k}^\ast g_{-n+n_1-k}^\ast + f_{-n_1-k}^\ast g_{-n+n_1+k}^\ast\right) \right] \\
+& \qquad + f_0 g_{-n} \left(f_{k}^\ast g_{-n-k}^\ast + f_{-k}^\ast g_{-n+k}^\ast\right) \\
+A_{0}^{(-n)} &= a_{0}^{(-n)} = \sum_{n_1} f_{n_1} g_{-n-n_1} f_{n_1}^\ast g_{-n-n_1}^\ast = \sum_{n_1}\left|f_{n_1}g_{-n-n_1}\right|^2=
+|f_0g_{-n}|^2+\sum_{n_1>0} \left(\left|f_{n_1}g_{-n-n_1}\right|^2 + \left|f_{-n_1}g_{-n+n_1}\right|^2\right),
+\end{aligned}$}
+\end{equation*}
+\begin{equation*}
+\scalebox{0.76}{$
+\begin{aligned}
+B_{k>0}^{(n)} &= b_k^{(n)} - b_{-k}^{(n)} =
+i\sum_{n_1} f_{n_1} g_{n-n_1} f_{n_1+k}^\ast g_{n-n_1-k}^\ast -
+i\sum_{n_1} f_{n_1} g_{n-n_1} f_{n_1-k}^\ast g_{n-n_1+k}^\ast \\
+&= i\sum_{n_1} f_{n_1} g_{n-n_1} \left(f_{n_1+k}^\ast g_{n-n_1-k}^\ast - f_{n_1-k}^\ast g_{n-n_1+k}^\ast\right) \\
+&= i\sum_{n_1>0} \left[f_{n_1} g_{n-n_1} \left(f_{n_1+k}^\ast g_{n-n_1-k}^\ast - f_{n_1-k}^\ast g_{n-n_1+k}^\ast\right) 
++ f_{-n_1} g_{n+n_1} \left(f_{-n_1+k}^\ast g_{n+n_1-k}^\ast - f_{-n_1-k}^\ast g_{n+n_1+k}^\ast\right) \right] \\
+& \qquad + if_0 g_n \left(f_{k}^\ast g_{n-k}^\ast - f_{-k}^\ast g_{n+k}^\ast\right) \\
+B_{0}^{(n)} &= b_{0}^{(n)} = i\sum_{n_1} f_{n_1} g_{n-n_1} f_{n_1}^\ast g_{n-n_1}^\ast = i\sum_{n_1}\left|f_{n_1}g_{n-n_1}\right|^2=
+i|f_0g_n|^2+i\sum_{n_1>0} \left(\left|f_{n_1}g_{n-n_1}\right|^2 + \left|f_{-n_1}g_{n+n_1}\right|^2\right), \\
+B_{k>0}^{(-n)} &= b_k^{(-n)} - b_{-k}^{(-n)} =
+i\sum_{n_1} f_{n_1} g_{-n-n_1} f_{n_1+k}^\ast g_{-n-n_1-k}^\ast -
+i\sum_{n_1} f_{n_1} g_{-n-n_1} f_{n_1-k}^\ast g_{-n-n_1+k}^\ast \\
+&= i\sum_{n_1} f_{n_1} g_{-n-n_1} \left(f_{n_1+k}^\ast g_{-n-n_1-k}^\ast - f_{n_1-k}^\ast g_{-n-n_1+k}^\ast\right) \\
+&= i\sum_{n_1>0} \left[f_{n_1} g_{-n-n_1} \left(f_{n_1+k}^\ast g_{-n-n_1-k}^\ast - f_{n_1-k}^\ast g_{-n-n_1+k}^\ast\right) 
++ f_{-n_1} g_{-n+n_1} \left(f_{-n_1+k}^\ast g_{-n+n_1-k}^\ast - f_{-n_1-k}^\ast g_{-n+n_1+k}^\ast\right) \right] \\
+& \qquad + if_0 g_{-n} \left(f_{k}^\ast g_{-n-k}^\ast - f_{-k}^\ast g_{-n+k}^\ast\right) \\
+B_{0}^{(-n)} &= b_{0}^{(-n)} = i\sum_{n_1} f_{n_1} g_{-n-n_1} f_{n_1}^\ast g_{-n-n_1}^\ast = i\sum_{n_1}\left|f_{n_1}g_{-n-n_1}\right|^2=
+i|f_0g_{-n}|^2+i\sum_{n_1>0} \left(\left|f_{n_1}g_{-n-n_1}\right|^2 + \left|f_{-n_1}g_{-n+n_1}\right|^2\right).
+\end{aligned}$}
+\end{equation*}
+继续利用互易性原理的等式~\eqref{eq:reciprocal-relation}，我们有
+\begin{equation*}
+\scalebox{0.95}{$
+\begin{aligned}
+A_k^{(n)}-A_k^{(-n)} &= 0, \\
+B_k^{(n)}-B_k^{(-n)} &= 2if_0g_n\left(f_k^\ast g_{n-k}^\ast - f_k^\ast g_{-n-k}^\ast\right) + 2i \sum_{n_1>0} \left[ f_{n_1} g_{n-n_1} 
+\left(f_{n_1+k}^\ast g_{n-n_1-k}^\ast - f_{n_1-k}^\ast g_{n-n_1+k}^\ast\right) \right. \\
+& \qquad + \left. f_{n_1} g_{-n-n_1} \left(f_{n_1-k}^\ast g_{-n-n_1+k}^\ast - f_{n_1+k}^\ast g_{-n-n_1-k}^\ast\right) \right].
+\end{aligned}$}
+\end{equation*}
+故而根据等式~\eqref{eq:diffraction-iradiance-two-layer-expression}，我们可以得到
+\begin{equation}\label{eq:intensity-non0-order-expression}
+\scalebox{0.96}{$
+\begin{aligned}
+I^{(n)} - I^{(-n)} &= \sum_{k=0}^\infty \left[\left(A_k^{(n)}-A_k^{(-n)}\right)\cos(2\symbolpi k\Delta/p) + 
+\left(B_k^{(n)}-B_k^{(-n)}\right)\sin(2\symbolpi k\Delta/p)\right] \\
+&= \sum_{k=0}^\infty B_k\sin(2\symbolpi k\Delta/p) = 
+B_1\sin(2\symbolpi\Delta/p) + B_2\sin(4\symbolpi\Delta/p) + \ldots,
+\end{aligned}$}
+\end{equation}
+其中$B_k = B_k^{(n)}-B_k^{(-n)}$。
+这种方法的优势在于所需的未知系数较少，从而减少了单元数量，适合用于构建精确模型。
+特别是，这种展开形式不包含0阶项，所需的单元数量比0阶散射测量少一个。
+
+
+\section{傅立叶光学中的一些推导~\label{傅立叶光学中的一些推导}}

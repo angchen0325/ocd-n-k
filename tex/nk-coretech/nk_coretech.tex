@@ -1,0 +1,236 @@
+\documentclass[pra,superscriptaddress,reprint]{revtex4-1}
+
+\usepackage{amsmath,amssymb,graphicx,color,bm}
+\usepackage{soul} %\st \hl
+\usepackage{titlesec}
+\usepackage[inline]{enumitem} 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyfoot[C]{\thepage} % Place page number at center of footer
+\renewcommand{\headrulewidth}{0pt} % Remove header rule
+\renewcommand{\footrulewidth}{0pt} % Remove footer rule
+
+\titleformat{\section}{\normalfont\large\bfseries\centering}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\centering}{\thesection.\thesubsection.}{1em}{}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}} 
+
+\definecolor{myblue}{rgb}{0.18,0.19,0.57}
+\usepackage[colorlinks, linkcolor=magenta, citecolor=myblue, urlcolor=magenta]{hyperref}
+
+
+\begin{document}
+
+\title{\Large Core technologies of n\&k Inc.}
+
+\author{Ang Chen}
+% \affiliation{MZ optoelectronics, Shanghai, China}
+\thanks{chenang@outlook.com}
+
+
+\begin{abstract}
+In this note, we review the core technologies of n\&k Technology Inc., 
+for optical critical dimension (OCD) and thin film (TF) measurements.
+From the introduction of company history~\cite{nkhistory}, we can see that good OCD and TF measurements come from
+physically valid universal set of equations for $n$ and $k$, and measured raw data of excellent signal-to-noise ratio.
+\end{abstract}
+
+\maketitle
+
+% \tableofcontents
+
+\section{Introduction~\label{sec:1}}
+From the website~\cite{nkpremise} of n\&k Inc., we have the \textit{recipe} for successful 
+scatterometry and thin film measurements:
+\begin{itemize}%[leftmargin=*] 
+\setlength{\itemsep}{2pt}
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{0pt}
+\item \textit{Optical Raw Data}: Excellent raw data with optimized signal-to-noise ratio over the widest possible wavelength range, 
+either from 190 nm--1,000 nm or 190 nm--15,000 nm. Good optical design involves reflective optics to optimize the number of photons (signal) reaching the detector.
+\item \textit{Combined with Analysis}: The physically valid Forouhi-Bloomer (F-B) dispersion equations for $n$ and $k$, are utilized for thin film analysis.
+The F-B equations are combined with the physically valid Rigorous Coupled Wave Analysis (RCWA) for analysis of OCD structures (2D trenches and 3D holes).
+\end{itemize}
+
+Thus, we first review the F-B dispersion equations, and then the analysis of OCD and TF measurements.  
+
+\section{F-B dispersion equations}
+
+
+\section{Analysis of OCD and TF measurements}
+
+
+\section{Conclusion}
+
+% \begin{widetext}
+% \begin{eqnarray}
+% \label{eq:27}
+% \cos(q_{1,2} a)
+% & = &
+% \cos x_1 \cos x_2 - \frac{c_{+}}{2} \left( \frac{Y_1}{Y_2} + \frac{Y_2}{Y_1} - \frac{\Delta_{21}\Delta_{12}}{Y_1Y_2} \right) \sin x_1 \sin x_2 \nonumber \\
+% & \quad & \pm \sqrt{\bar{\Delta}^2 \left( \frac{\sin^2 x_1 \cos^2 x_2}{Y_1^2} + \frac{\sin^2 x_2 \cos^2 x_1}{Y_2^2} + \frac{c_+ \sin 2 x_1 \sin 2 x_2}{2 Y_1 Y_2} \right) + \frac{c_-^2 Y_+^2 Y_-^2}{4 Y_1^2 Y_2^2} \sin^2 x_1 \sin^2 x_2},
+% \end{eqnarray}
+% \end{widetext}
+
+
+\appendix
+
+% \section{Fourier transformation of an image~\label{sec-a:ft-an0image}}
+% When computing the two-dimensional (2D) Fourier transform (FT) of an image, the output represents the frequency
+% components of the  in the spatial frequency domain.
+% Now let's determine the frequency range associated with the Fourier transform, based on the dimension of the image
+% with both pixel pixels ($N_x~\text{pixels}\times N_y~\text{pixels}$) 
+% and actual physical sizes ($L_x~\text{nm}\times L_y~\text{nm}$).
+% Here, the unit can be any length unit, and we just make nm as an example: 
+% If using nm, the unit of spatial frequency domain would be nm$^{-1}$.
+
+% The pixel spacing in each dimension given by the ratio of the physical size to the numbers of pixels:
+% \begin{equation}
+% \Delta_x = \frac{L_x}{N_x},~\Delta_y = \frac{L_y}{N_y}.
+% \end{equation}
+% When  an image is applied with FT, its spatial frequency range is determined by the \textit{Nyquist sampling theorem},
+% which states that the sampling frequency should be no less than the maximum frequency times by 2, leading to
+% \begin{subequations}
+% \begin{align}
+% f_{x,\text{max}} &= \frac{f_{x,\text{samp}}}{2} = \frac{1}{2\Delta_x} = \frac{N_x}{2L_x}, \\
+% f_{y,\text{max}} &= \frac{f_{y,\text{samp}}}{2} = \frac{1}{2\Delta_y} = \frac{N_y}{2L_y}.
+% \end{align}
+% \end{subequations}
+% The frequency bins (in cycles per nanometer) in $x$ and $y$ directions are spaced by:
+% \begin{equation}
+% \Delta f_x = \frac{1}{L_x},~\Delta f_y = \frac{1}{L_y},
+% \end{equation}
+% and thus the frequency components in the Fourier transform will range from 
+% $[-\frac{N_x}{2L_x}, \frac{N_x}{2L_x}]$ and $[-\frac{N_y}{2L_y}, \frac{N_y}{2L_y}]$.
+
+% We give an example with FFT in MATLAB, as shown in Fig.
+
+% \begin{figure}[t]
+% \centering
+% % Requires \usepackage{graphicx}
+% \includegraphics[scale=1]{./xx.pdf}\\
+% \caption{\label{fig:square_lattice}}
+% \end{figure}
+
+% \section{ THE PHOTONIC BAND STRUCTURES OF THE 1D TI PHCS~\label{sec:a1}}
+% With Eqs. \eqref{eq:6}, \eqref{eq:7} and \eqref{eq:24}, we can obtain the elements of $\mathcal{M}$ for the 1D TI PhC as follows,
+% \begin{subequations}
+% \label{eq:a1}
+% \begin{align}
+% M_{11}
+% & = e^{- i x_1} \cos x_2 - \frac{i}{2} \frac{c_1 Y_1}{c_2 Y_2} e^{- i x_1} \sin x_2 \nonumber \\
+% & - \frac{i}{2} \frac{c_2}{c_1} \left( \frac{Y_2}{Y_1} - \frac{\Delta_{21} \Delta_{12}}{Y_1Y_2} \right) e^{- i x_1} \sin x_2, \\
+% M_{12}
+% & = - \frac{\bar{\Delta}}{Y_1} e^{- i x_1} \cos x_2 \nonumber \\
+% & + \frac{i}{2 Y_2} \left( \frac{c_2 \Delta_{21}}{c_1} + \frac{c_1 \Delta_{12}}{c_2} \right) e^{- i x_1} \sin x_2, \\
+% M_{13}
+% & = \frac{i}{2}\left[\frac{c_1Y_1}{c_2Y_2}-\frac{c_2}{c_1}\left(\frac{Y_2}{Y_1}-\frac{\Delta_{21}\Delta_{12}}{Y_1Y_2} \right)\right]\sin x_2e^{ix_1}, \\
+% M_{14}
+% & = \frac{\bar{\Delta}}{Y_1} e^{i x_1} \cos x_2 \nonumber \\
+% & + \frac{i}{2 Y_2} \left( \frac{c_2 \Delta_{21}}{c_1} - \frac{c_1 \Delta_{12}}{c_2} \right) e^{i x_1} \sin x_2, \\
+% M_{21}
+% & = \frac{\bar{\Delta}}{Y_1} e^{- i x_1} \cos x_2 \nonumber \\
+% & - \frac{i}{2 Y_2} \left( \frac{c_2 \Delta_{21}}{c_1} + \frac{c_1 \Delta_{12}}{c_2} \right) e^{- i x_1} \sin x_2, \\
+% M_{22}
+% & = e^{- i x_1} \cos x_2 - \frac{i}{2} \frac{c_2 Y_1}{c_1 Y_2} e^{- i x_1} \sin x_2 \nonumber \\
+% & - \frac{i}{2} \frac{c_1}{c_2} \left( \frac{Y_2}{Y_1} - \frac{\Delta_{21} \Delta_{12}}{Y_1Y_2} \right) e^{- i x_1} \sin x_2, \\
+% M_{23}
+% & = \frac{\bar{\Delta}}{Y_1} e^{i x_1} \cos x_2 \nonumber \\
+% & + \frac{i}{2 Y_2} \left( \frac{c_1 \Delta_{21}}{c_2} - \frac{c_2 \Delta_{12}}{c_1} \right) e^{i x_1} \sin x_2, \\
+% M_{24}
+% & = -\frac{i}{2}\left[\frac{c_2Y_1}{c_1Y_2}-\frac{c_1}{c_2}\left(\frac{Y_2}{Y_1}-\frac{\Delta_{21}\Delta_{12}}{Y_1Y_2} \right)\right]\sin x_2e^{ix_1}.
+% \end{align}
+% \end{subequations}
+% The other 8 elements of $\mathcal{M}$ can be obtained from the complex conjugate of the elements in Eqs. \eqref{eq:a1}, as written in Eq. \eqref{eq:25}. The trace of $\mathcal{M}$ is
+% \begin{eqnarray}
+% \label{eq:a2}
+% % \nonumber % Remove numbering (before each equation)
+% \mathrm{Tr} (\mathcal{M})
+% &=& M_{11} + M_{22} + M_{11}^\ast + M_{22}^\ast \nonumber \\
+% &=& 2 [\Re(M_{11}) + \Re(M_{22})].
+% \end{eqnarray}
+
+% On the other hand, Bloch theorem reads
+% \begin{equation}
+% \label{eq:a3}
+% \tilde{E}_j (z)
+% =
+% \mathcal{M} \tilde{E}_j (z+a)
+% =
+% e^{-i K a} \tilde{E}_j (z+a),
+% \end{equation}
+% where $K$ is the Bloch wave vector. We have 4 Bolch wave vectors $K_1,K_2,K_3,K_4$, corresponding to 4 eigenvalues $e^{- i K_1 a},e^{- i K_2 a},e^{- i K_3 a},e^{- i K_4 a}$ of $\mathcal{M}$, leading to
+% \begin{equation}
+% \label{eq:a4}
+% \mathrm{Tr} (\mathcal{M})
+% =
+% \sum_{p = 1}^4 e^{-iK_pa}
+% =
+% \sum_{p = 1}^4 \cos K_p a - i \sum_{p = 1}^4 \sin K_p a.
+% \end{equation}
+% Eqs. \eqref{eq:a2} and \eqref{eq:a4} give
+% \begin{equation}
+% \label{eq:a5}
+% \sin K_1 a + \sin K_2 a + \sin K_3 a + \sin K_4 a = 0.
+% \end{equation}
+% Since $- \pi / a \leq K \leq \pi / a$, thus we have only 2 independent Bloch wave vectors: Via setting $K_1 = - K_2 = q_1, ~ K_3 = - K_4 = q_2$, and $0 \leq q_1 \leq q_2 \leq \pi / a$, we can reach
+% \begin{eqnarray}
+% \cos q_{1,2} a
+% &=&
+% \frac{1}{4} ( 2 \cos q_1 a + 2 \cos q_2 a ) \nonumber \\
+% & &
+% \pm  \frac{1}{4}| 2 \cos q_1 a - 2 \cos q_2 a|.
+% \end{eqnarray}
+% By some algebra, we have
+% \begin{eqnarray*}
+% & & 2 \cos q_1 a + 2 \cos q_2 a \\
+% &=&
+% e^{- i q_1 a} + e^{i q_1 a} + e^{- i q_2 a} + e^{i q_2 a} = \mathrm{Tr} (\mathcal{M}), \\
+% & & |2 \cos q_1 a - 2 \cos q_2 a| \\
+% &=& \sqrt{4 (\cos q_1 a - \cos q_2 a)^2} \\
+% &=& \sqrt{4 (\cos 2 q_1 a + \cos 2 q_2 a) - 4 ( \cos q_1 a + \cos q_2 a)^2 + 8} \\
+% &=& \sqrt{2 \mathrm{Tr} (\mathcal{M}^2) - \mathrm{Tr}^2 (\mathcal{M}) + 8}.
+% \end{eqnarray*}
+
+
+\begin{thebibliography}{99}
+
+\bibitem{nkhistory}
+n\&k Technology Inc. history. \\
+\url{https://www.nandk.com/company/#history}.
+
+\bibitem{nkpremise}
+n\&k Technology Inc. premise. \\
+\url{https://www.nandk.com/company/#premise}.
+
+
+\bibitem{forouhi1986optical}
+A. R. Forouhi and I. Bloomer.
+\textit{Optical dispersion relations for amorphous semiconductors and amorphous dielectrics}.
+Physical Review B \textbf{34}: 7018, 1986.
+
+\bibitem{forouhi1988optical}
+A. R. Forouhi and I. Bloomer.
+\textit{Optical properties of crystalline semiconductors and dielectrics}.
+Physical Review B \textbf{38}: 1965, 1988.
+
+\bibitem{forouhi2019new}
+A. R. Forouhi and I. Bloomer.
+\textit{New dispersion equations for insulators and semiconductors valid
+throughout radio-waves to extreme ultraviolet spectral range}.
+Journal of Physics Communications \textbf{3}: 035022, 2019.
+
+\bibitem{forouhi20211optical}
+A. R. Forouhi and I. Bloomer.
+\textit{Optical dispersion equations for metals applicable to the Far-IR
+through EUV spectral range}.
+Journal of Physics Communications \textbf{5}: 025002, 2021.
+
+% \bibitem{random-forest-classifier}
+% Random Forest Classifier. \\
+% \url{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html}.
+
+\end{thebibliography}
+
+\end{document} 

@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        
+%   Define new font families for Font Awesome symbols  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+\newfontfamily{\FABrands}
+[Path = fontawesome/, 
+Scale = 0.85, Extension = .otf]
+{FontAwesome6Brands}
+
+\newfontfamily{\FARegular}
+[Path = fontawesome/, 
+Scale = 0.85, Extension = .otf]
+{FontAwesome6Regular}
+
+\newfontfamily{\FASolid}
+[Path = fontawesome/, 
+Scale = 0.95, Extension = .otf]
+{FontAwesome6Solid}
+
+\newcommand{\faBrands}[1]{{\FABrands\symbol{"#1}}}
+\newcommand{\faRegular}[1]{{\FARegular\symbol{"#1}}}
+\newcommand{\faSolid}[1]{{\FASolid\symbol{"#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%      Example usage       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\faEnvelope{\faSolid{F0E0}}
+\def\faEnvelopeO{\faRegular{F0E0}}
+\def\faPhone{\faSolid{F095}}
+\def\faGithub{\faBrands{F09B}}
+\def\faGoogleScholar{\faBrands{E63B}}
+\def\faOrcid{\faBrands{F8D2}}
+\def\faCrossHairs{\faSolid{F05B}}
+\def\faBullseye{\faSolid{F140}}
+
+\def\faHeartbeat{\faSolid{F21E}}
+\def\faGraduationCap{\faSolid{F19D}}
+\def\faUniversity{\faSolid{F19C}}
+\def\faUsers{\faSolid{F0C0}}
+\def\faProject{\faSolid{F542}}
+\def\faSquare{\faSolid{F0C8}}
+\def\faCogs{\faSolid{F085}}
+\def\faCog{\faSolid{F013}}
+\def\faMusic{\faSolid{F001}}
+\def\faPlay{\faSolid{F04B}}
+\def\faFile{\faRegular{F15C}}
+\def\faBook{\faSolid{F02D}}
+
+% Companies
+\def\faMicrosoft{\faBrands{F3CA}}
+\def\faApple{\faBrands{F179}}
+\def\faGoogle{\faBrands{F1A0}}
+\def\faMeta{\faBrands{E49B}}
+\def\faFacebook{\faBrands{F09A}}
+\def\faTwitter{\faBrands{F099}}
+\def\faXTwitter{\faBrands{E61B}}
