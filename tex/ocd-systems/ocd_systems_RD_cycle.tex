@@ -1,0 +1,104 @@
+% \begin{abstract}
+% 开发DBO量测设备
+% \end{abstract}
+
+\newpage
+
+\section{光学量测机台的开发流程~\label{光学量测机台的开发流程}}
+光学量测机台的研发周期通常需要$2.5\sim4$年，具体取决于产品的复杂性和技术要求。
+一款光学量测设备，特别是用于纳米结构的特征尺寸(Critical Dimension, CD)、厚度、折射率等精密参数测量的系统，
+其完整研发周期如下：
+\begin{enumerate}
+\setlength{\itemsep}{2pt}
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{0pt}
+\item 原理验证机：Proof-of-Concept, POC 
+\item 光学验证样机：Optical Feasibility Bench
+\item Alpha样机：功能集成型
+\item Beta样机：可重复可生产化雏形
+\item 预量产样机：Pilot机
+\item 量产机台：Mass Production, MP
+\end{enumerate}
+上述六个阶段又可以划分成两个大阶段：
+\begin{enumerate}
+\setlength{\itemsep}{2pt}
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{0pt}
+\item 第一大阶段：从\texttt{0}到\texttt{1} (原理验证机$\rightarrow$光学验证样机$\rightarrow$ Alpha样机)
+\item 第二大阶段：从\texttt{1}到\texttt{100} (Beta样机$\rightarrow$预量产样机$\rightarrow$量产机台)
+\end{enumerate}
+
+
+\subsection{各阶段机台的功能和特点~\label{各阶段机台的功能和特点}}
+原理验证机的功能和特点见表~\ref{table:POC}：
+\begin{table}[h!]
+\centering
+\caption{\textbf{阶段1-原理验证机} (约3$\sim$6个月)}
+\label{table:POC}
+\begin{tabular}{l|l}
+\hline\hline
+\textbf{阶段名称} & \textbf{含义} \\ \hline
+目标 & 验证关键物理原理，明确目标参数，竞争对手分析 \\ \hline
+输出 & 基础散射谱数据$+$初步仿真$+$手动装配测试装置(非封装) \\ \hline
+特点 & 非自动化、不稳定，仅验证光学或算法是否“可测” \\ \hline
+参与人员 & 光学工程师、算法工程师、1名技术负责人 (3人) \\ \hline
+典型设备形态 & 面包板结构$+$三轴架$+$旋钮$+$光谱仪$+$手动样品台 \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+光学验证样机的功能和特点见表~\ref{table:OFB}：
+\begin{table}[h!]
+\centering
+\caption{\textbf{阶段2-光学验证样机} (约4$\sim$8个月)}
+\label{table:OFB}
+\begin{tabular}{l|l}
+\hline\hline
+\textbf{阶段名称} & \textbf{含义} \\ \hline
+目标 & 优化光源、探测路径与光机布局，结合仿真提升谱图质量与拟合能力) \\ \hline
+输出 & 准稳定光学架构、测量精度验证报告、与SEM/AFM对比误差 \\ \hline
+新增特点 & 模拟数据库构建、反演算法初步建立，开始验证不同结构可区分性 \\ \hline
+参与人员 & 光学+算法+机械+软件工程师(4$\sim$5人) \\ \hline
+风险点 & 样品漂移、入射角控制精度、建模误差放大等 \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+Alpha样机的功能和特点见表~\ref{table:alpha}：
+\begin{table}[h!]
+\centering
+\caption{\textbf{阶段3-Alpha样机} (约8$\sim$12个月)}
+\label{table:alpha}
+\begin{tabular}{l|l}
+\hline\hline
+\textbf{阶段名称} & \textbf{含义} \\ \hline
+目标 & 实现功能完整系统，具备基本自动化、GUI自动扫描、离线反演等能力 \\ \hline
+输出 & Alpha原型机 $+$ TRR报告 $+$ 全系统图 $+$ 结构重建与偏差分析 \\ \hline
+特点 & 自动偏振调制、角度扫描、反演建模、基本算法$+$机械$+$软件融合 \\ \hline
+参与人员 & 可在上阶段基础上增加1$\sim$2人(6$\sim$7人)  \\ \hline
+可测参数 & CD，厚度，n/k  \\ \hline
+风险点 & 机械重复性、软件控制、系统热稳定性等 \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+
+
+
+% 硅(Si)、碳化硅(SiC)和氮化镓(GaN)功率芯片调节各种消费品、工业设备和最新电动汽车(Electric Vehicle, EV)的电压和电流。
+% 必须监控制造过程，以确保满足功率设备类型的最高质量和可靠性标准，包括MOSFET、Power MOS、IGBT (Insulated Gate Bipolar Transistor)、BIPOLAR-CMOS-DMOS(BCD)、超级结、二极管和整流器。
+
+% \texttt{n\&k}公司~\cite{nktechnology}的Olympian和OptiPrime(X)系列光学量测机台可以用来监测功率器的制造流程，比较典型的应用包括：
+% \begin{itemize}[leftmargin=*] 
+% \setlength{\itemsep}{2pt}
+% \setlength{\parsep}{0pt}
+% \setlength{\parskip}{0pt}
+% \item 原子级(埃级)精度控制的沉积、扩散、外延和光刻工艺。
+% \item 聚氧化物凹槽、触点、沟渠隔离(STI和DTI)的蚀刻结构。
+% \item 高长宽比($>20:1$)沟槽和通孔，以及侧壁角度监测。
+% \item 用于晶圆的SOI (Silicon-On-Insulator)和GOS (GaN-On-Silicon)的工程基质层。
+% \end{itemize}
+
+
+
+
