@@ -12,12 +12,12 @@
 \setlength{\itemsep}{2pt}
 \setlength{\parsep}{0pt}
 \setlength{\parskip}{0pt}
-\item 原理验证机：Proof-of-Concept, POC 
-\item 光学验证样机：Optical Feasibility Bench
-\item Alpha样机：功能集成型
-\item Beta样机：可重复可生产化雏形
-\item 预量产样机：Pilot机
-\item 量产机台：Mass Production, MP
+\item 原理验证机：Proof-of-Concept, POC；关键物理机制验证 
+\item 光学验证样机：Optical Feasibility Bench；构建可重复性光路与仿真验证平台
+\item Alpha样机：功能集成型；全系统功能集成原型
+\item Beta样机：可重复可生产化雏形；结构/软件稳定性与客户可用性
+\item 预量产样机：Pilot机；3$\sim$10台系统构建与交付验证
+\item 量产机台：Mass Production, MP；标准化量产与售后服务体系建立
 \end{enumerate}
 上述六个阶段又可以划分成两个大阶段：
 \begin{enumerate}
@@ -39,7 +39,7 @@
 \hline\hline
 \textbf{阶段名称} & \textbf{含义} \\ \hline
 目标 & 验证关键物理原理，明确目标参数，竞争对手分析 \\ \hline
-输出 & 基础散射谱数据$+$初步仿真$+$手动装配测试装置(非封装) \\ \hline
+输出 & 基础建模能力，手动装配测试装置(非封装)，竞对产品报告\\ \hline
 特点 & 非自动化、不稳定，仅验证光学或算法是否“可测” \\ \hline
 参与人员 & 光学工程师、算法工程师、1名技术负责人 (3人) \\ \hline
 典型设备形态 & 面包板结构$+$三轴架$+$旋钮$+$光谱仪$+$手动样品台 \\
@@ -82,23 +82,110 @@ Alpha样机的功能和特点见表~\ref{table:alpha}：
 \end{tabular}
 \end{table}
 
+Beta样机的功能和特点见表~\ref{table:beta}：
+\begin{table}[h!]
+\centering
+\caption{\textbf{阶段4-Beta样机} (约8$\sim$10个月)}
+\label{table:beta}
+\begin{tabular}{l|l}
+\hline\hline
+\textbf{阶段名称} & \textbf{含义} \\ \hline
+目标 & 机械结构稳定、软件稳定、可靠性初步验证，可在研发环境内24/7运行 \\ \hline
+输出 & Beta样机 + 对比量测报告 + 可靠性测试报告(温飘、连续测量误差) \\ \hline
+新增特性 & 支持校准流程(SOP)、结构更紧凑、开发对外接口(SECS/GEM预留) \\ \hline
+参与人员 & 引入FAE工程师，测试工程师 (8$\sim$10人)  \\ \hline
+客户参与 & 邀请早期客户评测(early access)，获取工艺线反馈  \\ \hline
+风险点 & 软件bug、量测不稳定、校准流程不健全等 \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+预量产样机的功能和特点见表~\ref{table:pilot}：
+\begin{table}[h!]
+\centering
+\caption{\textbf{阶段5-预量产样机} (约6$\sim$8个月)}
+\label{table:pilot}
+\begin{tabular}{l|l}
+\hline\hline
+\textbf{阶段名称} & \textbf{含义} \\ \hline
+目标 & 批量制造流程验证、产测SOP验证、首批客户现场安装测试 \\ \hline
+输出 & 小批量(3$\sim$10台)生产样机，包含完整产品文档包 \\ \hline
+新增特性 & 建立工程变更流程(ECR/ECO)、建立技术支持体系(TSE) \\ \hline
+参与人员 & 引入工程支持、品控、文档 (10$+$人)  \\ \hline
+典型测试 & 50$+$小时连续稳定测量、$\pm$0.5 nm重复性、$\pm$1.5 nm准确度 \\ \hline
+风险点 & 工程变更未闭环、供应链问题、产线反馈滞后 \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+量产机的功能和特点见表~\ref{table:mp}：
+\begin{table}[h!]
+\centering
+\caption{\textbf{阶段5-量产机} (约6个月)}
+\label{table:mp}
+\begin{tabular}{l|l}
+\hline\hline
+\textbf{阶段名称} & \textbf{含义} \\ \hline
+目标 & 满足出厂测试、客户出货、可服务、可升级等要求 \\ \hline
+性能目标 & 符合客户spec，误差$<\pm1$ nm，良率$>98$\%，$\text{MTBF}>3000$小时 \\
+\hline\hline
+\end{tabular}
+\end{table}
 
 
+\subsection{第一大阶段的WBS~\label{第一大阶段的WBS}}
+我们需要确定主要的工作分解结构(Work Breakdown Structure, WBS)：包括各个阶段的子任务和输出文档/交付物。
 
-% 硅(Si)、碳化硅(SiC)和氮化镓(GaN)功率芯片调节各种消费品、工业设备和最新电动汽车(Electric Vehicle, EV)的电压和电流。
-% 必须监控制造过程，以确保满足功率设备类型的最高质量和可靠性标准，包括MOSFET、Power MOS、IGBT (Insulated Gate Bipolar Transistor)、BIPOLAR-CMOS-DMOS(BCD)、超级结、二极管和整流器。
+原理验证机的WBS见表~\ref{table:POC_WBS}：
+\begin{table}[h!]
+\centering
+\caption{\textbf{原理验证机的WBS}}
+\label{table:POC_WBS}
+\begin{tabular}{c|l|l}
+\hline\hline
+\textbf{任务编号} & \textbf{子任务} & \textbf{输出文档/交付物}  \\ \hline
+1.1 & 目标结构选择与分析 & 技术选型报告 \\ \hline
+1.2 & 光学建模与仿真(RCWA) & 初版模拟库(.npz/.mat格式) \\ \hline
+1.3 & 实验装置搭建(非集成) & 手动平台，激光器，探测器 \\ \hline
+1.4 & 初步反演算法编写 & Python/Jupyter分析代码 \\ \hline
+1.5 & 可测性验证与评估 & 原理验证报告(是否可量测)\\
+\hline\hline
+\end{tabular}
+\end{table}
 
-% \texttt{n\&k}公司~\cite{nktechnology}的Olympian和OptiPrime(X)系列光学量测机台可以用来监测功率器的制造流程，比较典型的应用包括：
-% \begin{itemize}[leftmargin=*] 
-% \setlength{\itemsep}{2pt}
-% \setlength{\parsep}{0pt}
-% \setlength{\parskip}{0pt}
-% \item 原子级(埃级)精度控制的沉积、扩散、外延和光刻工艺。
-% \item 聚氧化物凹槽、触点、沟渠隔离(STI和DTI)的蚀刻结构。
-% \item 高长宽比($>20:1$)沟槽和通孔，以及侧壁角度监测。
-% \item 用于晶圆的SOI (Silicon-On-Insulator)和GOS (GaN-On-Silicon)的工程基质层。
-% \end{itemize}
+光学验证样机的WBS见表~\ref{table:OFB_WBS}：
+\begin{table}[h!]
+\centering
+\caption{\textbf{光学验证样机的WBS}}
+\label{table:OFB_WBS}
+\begin{tabular}{c|l|l}
+\hline\hline
+\textbf{任务编号} & \textbf{子任务} & \textbf{输出文档/交付物}  \\ \hline
+2.1 & 光源/光路系统搭建 & Zemax/FRED光路图、波前仿真报告 \\ \hline
+2.2 & 样品测试实验& 实测谱图(光谱$\leftrightarrow$结构) \\ \hline
+2.3 & 多角度扫描 + 偏振控制实验 & 散射角度映射图 \\ \hline
+2.4 & 模拟谱与实测谱对比分析 & 曲线拟合报告、$R^2$评价指标 \\ \hline
+2.5 & 下一阶段设计草案 & Alpha架构建议图、风险点列表 \\
+\hline\hline
+\end{tabular}
+\end{table}
 
+Alpha样机的WBS见表~\ref{table:alpha_WBS}：
+\begin{table}[h!]
+\centering
+\caption{\textbf{Alpha样机的WBS}}
+\label{table:alpha_WBS}
+\begin{tabular}{c|l|l}
+\hline\hline
+\textbf{任务编号} & \textbf{子任务} & \textbf{输出文档/交付物}  \\ \hline
+3.1 & 系统功能模块设计(光+机+电) & 模块图纸、接口协议、控制框架图 \\ \hline
+3.2 & 软件平台开发(GUI + 数据分析) & 界面原型图、操作流程文档 \\ \hline
+3.3 & 样品量测与误差分析 & 误差统计表、重复性报告 \\ \hline
+3.4 & TRR测试评估 & 技术成熟度评审表、样机照片、谱图 \\ \hline
+3.5 & 迭代优化建议总结 & Bug list + Alpha改进建议 \\
+\hline\hline
+\end{tabular}
+\end{table} 
 
-
-
+这里，TRR (Technical Readiness Review)指的是技术成熟度评估；
+在研发中，制定TRR测试计划至关重要。
